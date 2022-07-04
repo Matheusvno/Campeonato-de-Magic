@@ -1,0 +1,152 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="out_Valor" Type="OutArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1844,1583</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="60">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Windows.Forms</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities.Models</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="37">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Windows.Forms</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.GSuite.Activities</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="476,1518" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]" />
+    <uix:NApplicationCard WebDriverMode="{x:Null}" AttachMode="ByInstance" CloseMode="Never" DisplayName="Use Browser Chrome: LigaMagic: Aqui você negocia e se informa sobre Magic: The Gathering" sap:VirtualizedContainerService.HintSize="434,1113" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" IsIncognito="True" OpenMode="Never" ScopeGuid="7457e7cc-2c7b-4c22-9a55-c79f1b1af6b6" Version="V1" WindowResize="Maximize">
+      <uix:NApplicationCard.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,897" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'INPUT mainsearch'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="334,216" sap2010:WorkflowViewState.IdRef="NTypeInto_1" ScopeIdentifier="7457e7cc-2c7b-4c22-9a55-c79f1b1af6b6" Text="[in_TransactionItem.SpecificContent(&quot;Cartas do deck&quot;).ToString]" Version="V1">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="https://www.ligamagic.com.br/?view=home" DesignTimeRectangle="339, 136, 625, 39" ElementType="InputBox" FriendlyName="'INPUT mainsearch'" FullSelectorArgument="&lt;webctrl tag='INPUT' type='text' id='mainsearch' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='INPUT' type='text' id='mainsearch' class='l-header-search-input' aaname='' /&gt;" Guid="0e83c73e-745d-45af-993f-403f313bf9b6" ImageBase64="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" InformativeScreenshot="0eb6d779d87a2f59110b295ee190710d.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='LigaMagic: Aqui você negocia e se informa sobre Magic: The Gathering' /&gt;" SearchSteps="FuzzySelector, Image" Visibility="Interactive" />
+              </uix:NTypeInto.Target>
+            </uix:NTypeInto>
+            <uix:NClick ClickType="Single" DisplayName="Click 'BUTTON'" sap:VirtualizedContainerService.HintSize="334,156" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="7457e7cc-2c7b-4c22-9a55-c79f1b1af6b6" Version="V1">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable BrowserURL="https://www.ligamagic.com.br/?view=home" DesignTimeRectangle="934, 140, 30, 40" ElementType="Button" FriendlyName="'BUTTON'" FullSelectorArgument="&lt;webctrl idx='2' tag='BUTTON' /&gt;" FuzzySelectorArgument="&lt;webctrl type='' tag='BUTTON' class='l-header-search-submit' aaname='' /&gt;" Guid="210e6fde-2abd-4a90-898b-42e3ddb621bb" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAACIAAAAsCAYAAAAATWqyAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKSSURBVFhH7ZhvaE1xGMev3XnBC1K8IcVbb8ULeaG8UJJXau5Fhi1qLaX2Yi0aUsvQaiW6LxBN/mxx07RWamLiUkJhVohsMWsbu7nG+fo9e57j3Hvb+Z3fuXHOeXE/9XS73/P787lPv3NPnRiSMUShIiQSNLks8PgG0LQyZBEbJWTlyYQnorBUZ6woiFBXfidmRUBEMaVEqCuhi/xMRkQkF5WOlC4y+BC42gS0bAD2LgTqlgAnNgNdR4DhQRlkTmki6Za/9/2MVT0XuJOSwWb4Fzm+0dnwQj3wqBMYeQ8MDQD3O4D2hHP97G6Z5I0/kVutvEH9UiDTJeEMUDd2VPLY/ssS6jEX+fDC+aXUBS9ut/FYOjuTYxK6Yy5y/RAvnKqRwAA6yDSn75wE7piLtG7iRR9ckcAA+1CfV2fJA3ORusW86PAbCQx41sNzDq+VwB1zkdoFvOjoRwkMeHWX59Bj3gNzkWPredEnaQkMsA9sqlYCd8xFOhp40WsHJTDgTDXP6T0tgTvmIs97eVGqgX4JNdChprHbKoBPryV0x1yEuHSAF29ew/8rbrzsA2rm89juUxLq8SdiWUDDCt5gexzoaS+8i0ius5mvU+2cA3x+Kxf1+BMhshPqGbLL2Yxq3yJgz7zCjB4D9Ll/mUzU41/E5t5F4KR67Nv/L9ObLgfatgBPu7kTJEH50XUyyZ3SRfL58g4YG5IveeTL0B2k4d+I6CAZEqGi8+PC/xch6KFHIprzEowIQZ3R3EHBiXhQFimmLFJMWaSYskgBuWw0RKYyN8MXsVQ3JhtXhfeihgRymTTGG1fj+9a48+pqpGo2gqqv05+VGFU1URXHj0SF8zJvXFkFVmrzb6qoEyTxS7qBZAx/AEDDMnEKFdY9AAAAAElFTkSuQmCC" InformativeScreenshot="789b8f0bd5e1ecd794be6c463db16f2e.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='LigaMagic: Aqui você negocia e se informa sobre Magic: The Gathering' /&gt;" SearchSteps="FuzzySelector, Image" Visibility="Interactive" />
+              </uix:NClick.Target>
+            </uix:NClick>
+            <uix:NGetText DisplayName="Get Text 'N'" sap:VirtualizedContainerService.HintSize="334,156" sap2010:WorkflowViewState.IdRef="NGetText_1" ScopeIdentifier="7457e7cc-2c7b-4c22-9a55-c79f1b1af6b6" Version="V1">
+              <uix:NGetText.Target>
+                <uix:TargetAnchorable BrowserURL="https://www.ligamagic.com.br/?view=cards%2Fsearch&amp;card=Bateria-coelho&amp;tipo=1" DesignTimeRectangle="1189, 492, 90, 21" FriendlyName="'R$ 2,02'" FullSelectorArgument="&lt;webctrl aaname='R$*' parentid='card-info' tag='DIV' idx='2' /&gt;" FuzzySelectorArgument="&lt;webctrl parentid='card-info' tag='DIV' type='' class='col-prc col-prc-medio' /&gt;" Guid="4c1b4ede-781a-41ed-ab17-6025f3b1da3b" InformativeScreenshot="f7b425b96e831332c08abcca76836575.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Bateria-coelho / Rabbit Battery | Busca de Cards | LigaMagic' /&gt;" SearchSteps="FuzzySelector" Visibility="Interactive">
+                  <uix:TargetAnchorable.Anchors>
+                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                      <uix:Target DesignTimeRectangle="1041, 493, 26, 20" ElementType="Text" FriendlyName="'N'" FullSelectorArgument="&lt;webctrl aaname='N' tag='DIV' idx='2' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='N' tag='DIV' type='' class='avgp-extra' check:text='N' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAB4AAAAYCAYAAADtaU2/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADMSURBVEhL5ZaxDcMgEEXDApnHrdNmlLTeIg2dG7awXHoDyyU1G7hggB+OCIQdp4ngSJQnfck68D2dQLJPqMR3iG93ifPlCtG0WUM9qXdKFNPC0Us5k8qjuMSk+5AjEMVHG0sk8CNiuWB1e9e539SVea29S+AjMWCgkjqT2EA7EcwY62xi1YzQsJjks84obtHNFrALOvfMKhZNj8m59cAudhn8Yfsz5xW70LQEu1j4i1ZanCGBPxZX+yxW+xEgaKHE5NQzlRIbMSeVxMADA9+OUAaQws4AAAAASUVORK5CYII=" SearchSteps="FuzzySelector, Image" />
+                    </scg:List>
+                  </uix:TargetAnchorable.Anchors>
+                </uix:TargetAnchorable>
+              </uix:NGetText.Target>
+              <uix:NGetText.Text>
+                <OutArgument x:TypeArguments="x:String">[out_Valor]</OutArgument>
+              </uix:NGetText.Text>
+            </uix:NGetText>
+            <uix:NClick ClickType="Single" DisplayName="Click 'Menu'" sap:VirtualizedContainerService.HintSize="334,156" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="7457e7cc-2c7b-4c22-9a55-c79f1b1af6b6" Version="V1">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable BrowserURL="https://www.ligamagic.com.br/?view=cards%2Fsearch&amp;card=Haazda+Officer&amp;tipo=1" DesignTimeRectangle="715, 90, 88, 36" ElementType="Icon" FriendlyName="'IMG'" FullSelectorArgument="&lt;webctrl tag='IMG' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='IMG' type='' class='' aaname='' /&gt;" Guid="6776bc62-7243-41b6-9b73-83dfffb69406" ImageBase64="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" InformativeScreenshot="3ef5c8d6877cf75ea79f4d9234de8add.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Oficial de Haazda / Haazda Officer | Busca de Cards | LigaMagic' /&gt;" SearchSteps="FuzzySelector, Image" Visibility="Interactive">
+                  <uix:TargetAnchorable.Anchors>
+                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                      <uix:Target DesignTimeRectangle="710, 143, 118, 37" ElementType="Text" FriendlyName="'Menu'" FullSelectorArgument="&lt;webctrl aaname=' Menu' tag='A' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname=' Menu' tag='A' type='' class='cd-dropdown-trigger-right' check:innerText='Menu' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAHoAAAApCAYAAAD6Qz29AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI4SURBVHhe7ZcxSyNBFMdTXu8XsbnG76GIjWBrIyeCgqWtInhwxaXIKRxnYaUiHBdBi6u0C7EIdlsdQs5LdLNZs8+ZyU4ys46aQfZY8/4PfpDJm33F+83OzJb+TpcIjD8QzQSIZgJEMwGimQDRTIBoJkA0EyCaCRDNBIhmAkQzAaKZANFMyF307cIERSc7FP384k33fI9a61POusCP3EVHv77SW0I+76qrCWtNMatOkSM3Sp4LuYu+Ly9S9/c+9YIrb+LLIworS866GiWy3aSkXaUwmz+tq8UC0WNwRvdFVykOmhRX7FwUkFgwUnZG9GAB9KN3OsypeoGo106TIpLasp23FlWZemKOWaOIjI3oUMgzhfQFCMFKqiE6O65UKaHhIlH1THFqfiYP0U+5256lzuEmdc92vekcb9P953lnXc2w8aLhpgApKChnxC6rNzUrRdWQc/XvF0RC9DP8l8tY2vjI2L7Vti2bb4nuS3EGRL+N1upHSv7d0MP1hTcy7rZmnHU1VuP1W6yan8p1iH5JCkQXFLvxqeCBcPGfY+u2z3IbiC4o2cbLLVvGoPGWaD02b+i2/FdFZp5X8818Qclf9NwHCn+sU+dgw5vw+xq1VibddVOeiHGKNcYCLUeH7+eTXkwyklrZecErGu/+MgZGI3fR4bdPFF8cUnL7x5u4fk7h3oqzLvDj3Z/RYDQgmgkQzQSIZgJEMwGimQDRTIBoJkA0EyCaCRDNBIhmQum60SAw/kA0Cxr0CMN5QEi+Ya1FAAAAAElFTkSuQmCC" SearchSteps="FuzzySelector, Image" />
+                    </scg:List>
+                  </uix:TargetAnchorable.Anchors>
+                </uix:TargetAnchorable>
+              </uix:NClick.Target>
+            </uix:NClick>
+          </Sequence>
+        </ActivityAction>
+      </uix:NApplicationCard.Body>
+      <uix:NApplicationCard.TargetApp>
+        <uix:TargetApp Area="1091, 12, 1424, 1060" BrowserType="Chrome" IconBase64="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" InformativeScreenshot="c8f8fe292b3622c68f9fd07deeff214e.png" Selector="&lt;html app='chrome.exe' title='LigaMagic: Aqui você negocia e se informa sobre Magic: The Gathering' /&gt;" Url="https://www.ligamagic.com.br/?view=home" />
+      </uix:NApplicationCard.TargetApp>
+    </uix:NApplicationCard>
+    <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="434,55" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />
+  </Sequence>
+</Activity>
